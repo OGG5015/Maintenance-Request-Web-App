@@ -7,13 +7,8 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
+/*.App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,17 +17,50 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+}*/
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white;
+  
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  padding: 8px; /* Adjust the padding as needed */
+  text-align: left;
+}
+
+.navMenu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #333; /* Set your desired background color */
+  padding: 10px; /* Adjust padding as needed */
+  border-bottom: 1px solid #ddd; /* Set your desired border color for the bottom */
+}
+
+.navMenu a {
+  margin-left: 10px; /* Adjust margin for space between items */
+  padding: 8px 12px; /* Adjust padding as needed */
+  border: 1px solid #ccc; /* Set your desired border color */
+  border-radius: 4px; /* Adjust border-radius as needed for rounded corners */
+  text-decoration: none;
+  color: #fff; /* Set your desired text color */
+}
+
+.navMenu a:hover {
+  background-color: #555; /* Set your desired background color on hover */
 }
