@@ -2,7 +2,7 @@ Here is a short video discussing project 3 for CMPSC 487W:
 
 https://youtu.be/jARWFfdxrsE
 
-
+I had a lot of difficulty uploading all files to this repo.  I had two main folders on my project and the main branch was only set to one of those folders.  I was able to upload the server side files, modules, etc to a separate repo.  To view, please visit this link: https://github.com/OGG5015/Maintenance-Request-Web-App-2
 
 
 # Getting Started with Create React App
