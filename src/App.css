@@ -8,8 +8,8 @@
 }
 
 body {
-  margin: 0; /* Reset default margin */
-  font-family: Arial, sans-serif; /* Set your desired font */
+  margin: 0; 
+  font-family: Arial, sans-serif; 
 }
 
 /*.App-header {
@@ -43,36 +43,36 @@ th {
 }
 
 td {
-  padding: 8px; /* Adjust the padding as needed */
+  padding: 8px; 
   text-align: left;
 }
 
 .navMenu {
-  position: fixed; /* Fixed position */
-  top: 0; /* Stick to the top */
+  position: fixed; 
+  top: 0; 
   left: 0;
   width: 100%;
   background-color: #333;
   padding: 10px;
   border-bottom: 1px solid #ddd;
-  z-index: 100; /* Set a higher z-index */
+  z-index: 100; 
 }
 
 .display-table {
-  margin-top: 60px; /* Adjust the top margin as needed */
+  margin-top: 60px; 
 }
 
 .navMenu a {
-  margin-left: 10px; /* Adjust margin for space between items */
-  padding: 8px 12px; /* Adjust padding as needed */
-  border: 1px solid #ccc; /* Set your desired border color */
-  border-radius: 4px; /* Adjust border-radius as needed for rounded corners */
+  margin-left: 10px; 
+  padding: 8px 12px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
   text-decoration: none;
-  color: #fff; /* Set your desired text color */
+  color: #fff;
 }
 
 .navMenu a:hover {
-  background-color: #555; /* Set your desired background color on hover */
+  background-color: #555; 
 }
 
 .confirm-complete-modal-overlay {
@@ -81,11 +81,11 @@ td {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent gray background */
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Make sure the modal is on top of other elements */
+  z-index: 1000; 
 }
 
 .confirm-modal {
@@ -93,7 +93,7 @@ td {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 1001; /* Make sure the modal is on top of the overlay */
+  z-index: 1001; 
 }
 
 .request-filters {
@@ -120,11 +120,11 @@ td {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent gray background */
+  background: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Make sure the modal is on top of other elements */
+  z-index: 1000; 
 }
 
 .edit-modal {
@@ -132,27 +132,27 @@ td {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 1001; /* Make sure the modal is on top of the overlay */
+  z-index: 1001;
 }
 
 .MaintenanceRequests {
-  padding: 20px; /* Adjust padding as needed */
+  padding: 20px; 
 }
 
 .maintenanceRequestDisplay {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px; /* Adjust margin as needed */
+  margin-top: 20px; 
 }
 
 .maintenanceRequestDisplay th, .maintenanceRequestDisplay td {
-  border: 1px solid #ddd; /* Set your desired border color */
-  padding: 8px; /* Adjust padding as needed */
+  border: 1px solid #ddd; 
+  padding: 8px; 
   text-align: left;
 }
 
 .maintenanceRequestDisplay th {
-  background-color: #f2f2f2; /* Set your desired background color for table header */
+  background-color: #f2f2f2; 
 }
 /*
 .createMRForm{
@@ -190,41 +190,37 @@ td {
   padding-right: 50px;
 }*/
 
-/* Form Styles */
 .createMRForm {
-  border: 3px solid #ddd; /* Use a color that complements your design */
-  padding: 40px 20px; /* Adjusted padding for better spacing */
-  background-color: #fff; /* Set your desired background color */
-  font-size: 1.2em; /* Adjusted font size for a more appealing look */
-  margin: 50px auto; /* Center the form on the page */
-  max-width: 800px; /* Set a maximum width for better readability */
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  border-radius: 8px; /* Add rounded corners */
-  text-align: left; /* Align text to the left */
+  border: 3px solid #ddd; 
+  padding: 40px 20px; 
+  background-color: #fff; 
+  font-size: 1.2em; 
+  margin: 50px auto; 
+  max-width: 800px; 
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); 
+  border-radius: 8px; 
+  text-align: left; 
 }
 
-/* Field Styles */
 .problemAreaContents,
 .descriptionContents,
 .imageContents {
   margin-bottom: 20px;
 }
 
-/* Adjust margin and padding for better spacing */
 .problemAreaField,
 .descriptionField,
 .imageInput {
-  margin-left: 0; /* Align items to the left */
-  margin-bottom: 10px; /* Improved spacing between fields */
-  padding: 10px; /* Adjusted padding for uniform spacing */
+  margin-left: 0; 
+  margin-bottom: 10px; 
+  padding: 10px; 
 }
 
-/* Add border and border-radius to input fields */
 .problemAreaField,
 .descriptionField,
 .imageInput {
-  border: 1px solid #ddd; /* Set a border color */
-  border-radius: 4px; /* Add rounded corners */
+  border: 1px solid #ddd; 
+  border-radius: 4px; 
 }
 
 /*.login {
@@ -293,8 +289,8 @@ td {
   width: 100%;
   text-align: center;
   display: flex;
-  flex-direction: column; /* Align items in a column */
-  align-items: center; /* Center items horizontally */
+  flex-direction: column; 
+  align-items: center; 
 }
 
 .emailpassword {
@@ -352,8 +348,8 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
-  text-align: center; /* Center text inside forms */
+  flex-wrap: wrap; 
+  text-align: center; 
   margin-top: 50px;
 }
 
@@ -363,11 +359,11 @@ td {
   padding: 20px;
   background-color: #fff;
   font-size: 1.2em;
-  width: 400px; /* Set a fixed width for each form */
+  width: 400px; 
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   text-align: left;
-  margin: 0 20px 20px 20px; /* Adjust margin as needed */
+  margin: 0 20px 20px 20px; 
 }
 
 .not-resident-text {
