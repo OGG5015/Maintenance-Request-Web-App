@@ -320,7 +320,7 @@ td {
 }
 
 .loginButton { 
-  background-color: #4caf50;
+  background-color: lightsteelblue;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -330,7 +330,7 @@ td {
 }
 
 .loginButton:hover {
-  background-color: #45a049;
+  background-color: lightsteelblue;
 }
 
 
