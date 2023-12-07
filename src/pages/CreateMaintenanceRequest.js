@@ -14,36 +14,7 @@ const CreateMaintenanceRequest = (props) => {
 
 
     const navigate = useNavigate();
-    /*const handleCreateMaintenanceRequest = async (e) => {
-        try {
-            // Set the current date and time
-            const currentDateTime = new Date();
-
-            // Create a new maintenance request object
-            const newMaintenanceRequest = {
-                apartmentnumber: apartmentNumber,
-                problemarea: problemArea,
-                description: description,
-                datetime: currentDateTime,
-                problemimage: problemImage,
-                status: 'Pending', // You can set the initial status as needed
-            };
-
-            // Send a POST request to your backend to save the maintenance request
-            const response = await Axios.post('/createMaintenanceRequest', newMaintenanceRequest);
-
-            if (response.data.success) {
-                // Successfully created the maintenance request, navigate to the appropriate page
-                navigate('/MaintenanceRequests');
-            } else {
-                // Handle error response
-                console.error(response.data.message);
-            }
-        } catch (error) {
-            // Handle network or server errors
-            console.error(error);
-        }
-    };*/
+    
 
     const handleCreateMaintenanceRequest = () => {
         //fix so that the time is displayed in the maintenance request data
@@ -53,13 +24,16 @@ const CreateMaintenanceRequest = (props) => {
         const year = date.getFullYear();
 
         const currentDate = `${year}-${month}-${day}`
+
+        const userID = localStorage.getItem('userID')
         Axios.post("http://localhost:3001/createMaintenanceRequest", {
             apartmentnumber: apartmentNumber,
             problemarea: problemArea,
             description: description,
             problemimage: problemImage,
             datetime: currentDate,
-            status: 'Pending'
+            status: 'Pending',
+            userid: userID
         }).then((response) => {
             setMaintenanceRequest([...maintenanceRequest,
                 {
@@ -73,7 +47,7 @@ const CreateMaintenanceRequest = (props) => {
                 //user will have to click a button to continue back to the maintenance request page
                 //add error handling in this
         })
-        navigate("/MaintenanceRequestsMT")
+        navigate("/MaintenanceRequestsTT")
     }
 
     return (
@@ -111,8 +85,9 @@ const CreateMaintenanceRequest = (props) => {
                         value={problemImage}></input>
                 </div>
                 <button type='submit'>Submit</button>
+                <button onClick={() => navigate(-1)}>Cancel</button>
             </form>
-            <button onClick={() => navigate(-1)}>Cancel</button>
+            
         </div>
     )
 }

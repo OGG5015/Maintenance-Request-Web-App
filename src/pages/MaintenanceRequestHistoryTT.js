@@ -12,22 +12,23 @@ const MaintenanceRequestHistoryTT = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-
-                //const apartmentNumber = 14;
-                //const response = await Axios.get(`http://localhost:3001/getMaintenanceRequestsByApartment/${apartmentNumber}`)
-                // Make a GET request to the maintenance requests endpoint
-                const response = await Axios.get('http://localhost:3001/getMaintenanceRequests/');
-
-                // Update the state with the fetched data
-                setListOfRequests(response.data);
+              const userID = localStorage.getItem('userID');
+      
+              if (!userID) {
+                navigate('/');
+                return;
+              }
+              
+      
+              const response = await Axios.get(`http://localhost:3001/getMaintenanceRequestsByUserid/${userID}`);
+      
+              setListOfRequests(response.data);
             } catch (error) {
-                // Handle error, for example, log it or show a user-friendly message
-                console.error('Error fetching maintenance requests:', error);
+              console.error('Error fetching maintenance requests:', error);
             }
-        };
-
-        // Call the fetchData function when the component mounts
-        fetchData();
+          };
+      
+          fetchData();
     }, []);
 
     const completedRequests = listOfRequests.filter(
@@ -46,8 +47,9 @@ const MaintenanceRequestHistoryTT = (props) => {
 
             </nav>
 
-            <h1>Here are the maintenance requests</h1>
+            
             <div className='MaintenanceRequests'>
+            <h1>Here are the maintenance requests</h1>
                 <div>
                     <table className="maintenanceRequestDisplay">
                         <thead>

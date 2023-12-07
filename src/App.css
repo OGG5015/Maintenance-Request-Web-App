@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+body {
+  margin: 0; /* Reset default margin */
+  font-family: Arial, sans-serif; /* Set your desired font */
+}
 
 /*.App-header {
   background-color: #282c34;
@@ -44,12 +48,18 @@ td {
 }
 
 .navMenu {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  background-color: #333; /* Set your desired background color */
-  padding: 10px; /* Adjust padding as needed */
-  border-bottom: 1px solid #ddd; /* Set your desired border color for the bottom */
+  position: fixed; /* Fixed position */
+  top: 0; /* Stick to the top */
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  z-index: 100; /* Set a higher z-index */
+}
+
+.display-table {
+  margin-top: 60px; /* Adjust the top margin as needed */
 }
 
 .navMenu a {
@@ -63,4 +73,304 @@ td {
 
 .navMenu a:hover {
   background-color: #555; /* Set your desired background color on hover */
+}
+
+.confirm-complete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent gray background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure the modal is on top of other elements */
+}
+
+.confirm-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1001; /* Make sure the modal is on top of the overlay */
+}
+
+.request-filters {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 20px; 
+}
+
+.request-filters label {
+  display: flex;
+  flex-direction: column; 
+  margin-right: 10px; 
+}
+
+.request-filters input {
+  padding: 8px;
+  margin-top: 5px; 
+}
+
+.edit-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent gray background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure the modal is on top of other elements */
+}
+
+.edit-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1001; /* Make sure the modal is on top of the overlay */
+}
+
+.MaintenanceRequests {
+  padding: 20px; /* Adjust padding as needed */
+}
+
+.maintenanceRequestDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.maintenanceRequestDisplay th, .maintenanceRequestDisplay td {
+  border: 1px solid #ddd; /* Set your desired border color */
+  padding: 8px; /* Adjust padding as needed */
+  text-align: left;
+}
+
+.maintenanceRequestDisplay th {
+  background-color: #f2f2f2; /* Set your desired background color for table header */
+}
+/*
+.createMRForm{
+  border: 3px solid;
+  padding-left: 120px;
+  padding-right: 120px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  text-align: center;
+  background-color: white;
+  font-size: 150%;
+}
+
+.problemAreaContents{
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.descriptionContents{
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.imageContents{
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.problemAreaField,
+.descriptionField,
+.imageInput{
+  margin-left: 20px;
+  padding-bottom: 10%;
+  padding-left: 50px;
+  padding-right: 50px;
+}*/
+
+/* Form Styles */
+.createMRForm {
+  border: 3px solid #ddd; /* Use a color that complements your design */
+  padding: 40px 20px; /* Adjusted padding for better spacing */
+  background-color: #fff; /* Set your desired background color */
+  font-size: 1.2em; /* Adjusted font size for a more appealing look */
+  margin: 50px auto; /* Center the form on the page */
+  max-width: 800px; /* Set a maximum width for better readability */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  border-radius: 8px; /* Add rounded corners */
+  text-align: left; /* Align text to the left */
+}
+
+/* Field Styles */
+.problemAreaContents,
+.descriptionContents,
+.imageContents {
+  margin-bottom: 20px;
+}
+
+/* Adjust margin and padding for better spacing */
+.problemAreaField,
+.descriptionField,
+.imageInput {
+  margin-left: 0; /* Align items to the left */
+  margin-bottom: 10px; /* Improved spacing between fields */
+  padding: 10px; /* Adjusted padding for uniform spacing */
+}
+
+/* Add border and border-radius to input fields */
+.problemAreaField,
+.descriptionField,
+.imageInput {
+  border: 1px solid #ddd; /* Set a border color */
+  border-radius: 4px; /* Add rounded corners */
+}
+
+/*.login {
+  border: 3px solid;
+  padding-left: 120px;
+  padding-right: 120px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  text-align: center;
+  background-color: white;
+  font-size: 200%;
+}*/
+
+.emailpassword {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.emailLabel,
+.passwordFieldLabel {
+  display: block;
+  margin-top: 50px;
+  margin-bottom: 5px;
+  font-size:100%;
+  
+  
+}
+
+.emailField,
+.passwordField {
+  padding-bottom: 10%;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.set-width{
+  width: 200px;
+}
+
+.loginButton {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  background-color:lightsteelblue;
+  color: white;
+  padding: 20px 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: large;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* Align items in a column */
+  align-items: center; /* Center items horizontally */
+}
+
+.emailpassword {
+  display: flex;
+  justify-content: space-between;
+}
+
+.emailLabel {
+  margin-bottom: 8px;
+}
+
+.emailField {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+.passwordFieldLabel {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.passwordField {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+.loginButton { 
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.loginButton:hover {
+  background-color: #45a049;
+}
+
+
+.login-link {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+.login-link:hover {
+  color: darkblue;
+}
+
+.maintenance-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
+  text-align: center; /* Center text inside forms */
+  margin-top: 50px;
+}
+
+.maintenance-login,
+.admin-login {
+  border: 3px solid #ddd;
+  padding: 20px;
+  background-color: #fff;
+  font-size: 1.2em;
+  width: 400px; /* Set a fixed width for each form */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: left;
+  margin: 0 20px 20px 20px; /* Adjust margin as needed */
+}
+
+.not-resident-text {
+  margin-top: 20px;
+  text-align: center;
 }

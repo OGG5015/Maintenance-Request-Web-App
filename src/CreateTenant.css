@@ -1,0 +1,56 @@
+.createTenantForm {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .nameContents,
+  .emailContents,
+  .passwordContents,
+  .confirmPasswordContents,
+  .apartmentContents {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .confirmPasswordContents {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button,
+  button:active {
+    margin-top: 10px;
+  }
+  
+  button:last-child {
+    background-color: #808080;
+    margin-left: 10px;
+  }
+  
+  button:last-child:hover {
+    background-color: #737373;
+  }
+  

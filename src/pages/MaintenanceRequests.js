@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react"
 import Axios from 'axios'
+import { useCookies } from 'react-cookie'
+
 
 
 const MaintenanceRequests = (props) => {
@@ -15,20 +17,24 @@ const MaintenanceRequests = (props) => {
 
                 //const apartmentNumber = 14;
                 //const response = await Axios.get(`http://localhost:3001/getMaintenanceRequestsByApartment/${apartmentNumber}`)
-                // Make a GET request to the maintenance requests endpoint
                 const response = await Axios.get('http://localhost:3001/getMaintenanceRequests/');
 
-                // Update the state with the fetched data
                 setListOfRequests(response.data);
             } catch (error) {
-                // Handle error, for example, log it or show a user-friendly message
                 console.error('Error fetching maintenance requests:', error);
             }
         };
 
-        // Call the fetchData function when the component mounts
         fetchData();
     }, []);
+
+    const [_, setCookies] = useCookies(["access_token"])
+
+    const logout = () =>{
+        setCookies("access_token", "")
+        window.localStorage.removeItem("userID")
+        navigate("/")
+      }
 
     return (
 
@@ -37,7 +43,7 @@ const MaintenanceRequests = (props) => {
                 <div>
                     <a href='/MaintenanceRequestHistory'>History</a>
                     <a href='/CreateTenant'>Create a Tenant</a>
-                    <a href='/'> Logout</a>
+                    <a onClick = {logout} /*href='/'*/> Logout</a>
                 </div>
 
             </nav>

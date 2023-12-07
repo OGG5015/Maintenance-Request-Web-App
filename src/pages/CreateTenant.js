@@ -10,63 +10,121 @@ const CreateTenant = (props) => {
         name: '',
         email: '',
         password: '',
-        confirmPassword: '',
-        apartmentNumber: '',
+        apartmentnumber: '',
+        checkindate: new Date(), 
+        checkoutdate: new Date().setFullYear(new Date().getFullYear() + 1, 0, 1), // Set to one year from current date and noon
     });
 
-    const handleCreateTenant = async (e) => {
-        e.preventDefault();
-
-        try {
-            const response = await Axios.post('http://localhost:3001/createTenant', tenant);
-
-            if (response.data.success) {
-                // Successfully created the tenant, navigate to the appropriate page
-                navigate('/Tenants'); // Change this to the correct path
-            } else {
-                // Handle error response
-                console.error(response.data.message);
-            }
-        } catch (error) {
-            // Handle network or server errors
-            console.error(error);
-        }
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setTenant((prevTenant) => ({ ...prevTenant, [name]: value }));
     };
 
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    const [passwordMismatch, setPasswordMismatch] = useState(false);
+
+
+    const handleCreateTenant = async (e) => {
+        e.preventDefault();
+
+        if (tenant.password === passwordConfirmation) {
+            try {
+                const checkOccupiedResponse = await Axios.get(
+                    `http://localhost:3001/checkApartmentOccupied/${tenant.apartmentnumber}`
+                );
+
+                if (checkOccupiedResponse.data.occupied) {
+                    setApartmentOccupied(true);
+                } else {
+                    const createTenantResponse = await Axios.post(
+                        'http://localhost:3001/createTenant',
+                        tenant
+                    );
+
+                    if (createTenantResponse.data.success) {
+                        navigate('/UsersDisplay');
+                    } else {
+                        console.error(createTenantResponse.data.message);
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            setPasswordMismatch(true);
+        }
+    };
+
+    const handleConfirmPasswordChange = (e) => {
+        const { value } = e.target;
+        setPasswordConfirmation(value);
+        setPasswordMismatch(false);
+    };
+
+    const [apartmentOccupied, setApartmentOccupied] = useState(false);
+
+
     return ( //EDIT TO HAVE TENANT INFORMATION, NOT MAINTENANCE
-            //REQUEST INFORMATION --- change classnames, etc
-        <div> 
+        //REQUEST INFORMATION --- change classnames, etc
+        <div>
             <h1>Create a Tenant</h1>
-            <form className='createMRForm' onSubmit={handleCreateTenant}>
-                <div className='problemAreaContents'>
-                    <label for='problemAreaField'>Tenant Name: </label>
-                    <input 
-                        className= 'problemAreaField'
-                        id = 'nameField'></input>
+            <form className='createTenantForm' onSubmit={handleCreateTenant}>
+                <div className='nameContents'>
+                    <label for='nameField'>Tenant Name: </label>
+                    <input
+                        className='nameField'
+                        id='nameField'
+                        name = "name"
+                        onChange={handleChange}></input>
                 </div>
 
-                <div className='descriptionContents'>
-                    <label for = 'descriptionField'>Tenant Email: </label>
-                    <input className = 'descriptionField'></input>
+                <div className='emailContents'>
+                    <label for='emailField'>Tenant Email: </label>
+                    <input 
+                        className='emailField'
+                        name = 'email'
+                        onChange={handleChange}></input>
                 </div>
-                <div className='imageContents'>
-                    <label for = 'imageInput'>Tenant Password:</label>
-                    <input className='imageInput'></input>
+                <div className='phoneNumberContents'>
+                    <label for='phoneNumberField'>Phone Number:</label>
+                    <input
+                        className='phoneNumberField'
+                        name = 'phonenumber'
+                        onChange={handleChange}></input>
                 </div>
-                <div className='imageContents'>
-                    <label for = 'imageInput'>Confirm Tenant Password:</label>
-                    <input className='imageInput'></input>
+                <div className='passwordContents'>
+                    <label for='passwordInput'>Tenant Password:</label>
+                    <input
+                        type='password'
+                        className='passwordInput'
+                        onChange={handleChange}
+                        name="password"
+                        ></input>
                 </div>
-                <div className='problemAreaContents'>
-                    <label for='problemAreaField'>Tenant Apartment Number: </label>
-                    <input className= 'problemAreaField'></input>
+                <div className='confirmPasswordContents'>
+                    <label for='confirmPasswordInput'>Confirm Tenant Password:</label>
+                    <input
+                        type='password'
+                        className='confirmPasswordInput'
+                        onChange={handleConfirmPasswordChange}></input>
                 </div>
-                <button onSubmit={handleCreateTenant}>Submit</button>
+
+                {passwordMismatch && (
+                    <p style={{ color: 'red' }}>Passwords do not match</p>
+                )}
+
+                <div className='apartmentContents'>
+                    <label for='apartmentField'>Tenant Apartment Number: </label>
+                    <input 
+                        className='apartmentField'
+                        name='apartmentnumber'
+                        onChange={handleChange}></input>
+                    {apartmentOccupied && (
+                        <p style={{ color: 'red' }}>Apartment is already occupied</p>
+                    )}
+                </div>
+                <button type= "submit">Submit</button>
             </form>
             <button onClick={() => navigate(-1)}>Cancel</button>
         </div>

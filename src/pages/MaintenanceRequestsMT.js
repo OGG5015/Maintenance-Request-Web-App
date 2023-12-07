@@ -3,58 +3,27 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react"
 import Axios from 'axios'
-//import Modal from 'react-modal';
 
 
 const MaintenanceRequestsMT = (props) => {
     const navigate = useNavigate();
     const [listOfRequests, setListOfRequests] = useState([]);
     const [selectedRequestId, setSelectedRequestId] = useState(null);
+    const [isConfirmationChecked, setIsConfirmationChecked] = useState(false);
+
 
     const [apartmentNumberFilter, setApartmentNumberFilter] = useState(null);
-    const [areaFilter, setAreaFilter] = useState(null);
+    const [areaFilter, setAreaFilter] = useState('');
     const [startDateFilter, setStartDateFilter] = useState(null);
     const [endDateFilter, setEndDateFilter] = useState(null);
     const [statusFilter, setStatusFilter] = useState(null);
-    //const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    /*useEffect(() => {
-        const fetchData = async () => {
-            try {
-
-                //const apartmentNumber = 14;
-                //const response = await Axios.get(`http://localhost:3001/getMaintenanceRequestsByApartment/${apartmentNumber}`)
-                // Make a GET request to the maintenance requests endpoint
-                const response = await Axios.get('http://localhost:3001/getMaintenanceRequests/');
-
-                // Update the state with the fetched data
-                setListOfRequests(response.data);
-            } catch (error) {
-                // Handle error, for example, log it or show a user-friendly message
-                console.error('Error fetching maintenance requests:', error);
-            }
-        };
-
-        // Call the fetchData function when the component mounts
-        fetchData();
-    }, []);*/
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let url = 'http://localhost:3001/getMaintenanceRequests/';
 
-                if (apartmentNumberFilter) {
-                    url += `byApartment/${apartmentNumberFilter}`;
-                } else if (areaFilter) {
-                    url += `byArea/${areaFilter}`;
-                } else if (startDateFilter && endDateFilter) {
-                    url += `byDateRange/${startDateFilter}/${endDateFilter}`;
-                } else if (statusFilter) {
-                    url += `byStatus/${statusFilter}`;
-                }
+                const response = await Axios.get('http://localhost:3001/getMaintenanceRequests/');
 
-                const response = await Axios.get(url);
                 setListOfRequests(response.data);
             } catch (error) {
                 console.error('Error fetching maintenance requests:', error);
@@ -62,11 +31,10 @@ const MaintenanceRequestsMT = (props) => {
         };
 
         fetchData();
-    }, [apartmentNumberFilter, areaFilter, startDateFilter, endDateFilter, statusFilter]);
+    }, []);
 
 
-
-    const markAsComplete = async (id) => {
+    /*const markAsComplete = async (id) => {
         try {
             // Send a PUT request to update the status to "Complete"
             await Axios.put(`http://localhost:3001/updateMaintenanceRequestStatus/${id}`, {
@@ -82,27 +50,54 @@ const MaintenanceRequestsMT = (props) => {
         } catch (error) {
             console.error('Error marking maintenance request as complete:', error);
         }
+    };*/
+    const markAsComplete = async (id) => {
+        setSelectedRequestId(id);
     };
 
-    const confirmMarkAsComplete = async () => {
-        try {
-            // Send a PUT request to update the status to "Complete"
-            await Axios.put(`http://localhost:3001/updateMaintenanceRequestStatus/${selectedRequestId}`, {
-                status: 'Complete',
-            });
+    const handleConfirmationChange = () => {
+        setIsConfirmationChecked(!isConfirmationChecked);
+    };
 
-            // Update the local state to reflect the change
-            setListOfRequests((prevRequests) =>
-                prevRequests.map((request) =>
-                    request._id === selectedRequestId ? { ...request, status: 'Complete' } : request
-                )
-            );
+    const confirmMarkAsComplete = async (id) => {
 
-            // Close the modal after marking as complete
-            //setModalIsOpen(false);
-        } catch (error) {
-            console.error('Error marking maintenance request as complete:', error);
+        const isConfirmationChecked = document.getElementById('confirmationCheckbox').checked;
+
+        if (isConfirmationChecked) {
+
+
+            try {
+                await Axios.put(`http://localhost:3001/updateMaintenanceRequestStatus/${selectedRequestId}`, {
+                    status: 'Complete',
+                });
+
+                setListOfRequests((prevRequests) =>
+                    prevRequests.map((request) =>
+                        request._id === selectedRequestId ? { ...request, status: 'Complete' } : request
+                    )
+                );
+
+                setSelectedRequestId(null);
+                closeConfirmModal();
+            } catch (error) {
+                console.error('Error marking maintenance request as complete:', error.response.data);
+            }
+        } else {
+            console.error('Please confirm before saving changes.');
         }
+
+    };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openConfirmModal = (maintenanceRequest) => {
+        setSelectedRequestId(maintenanceRequest);
+        setIsModalOpen(true);
+    };
+
+    const closeConfirmModal = () => {
+        setSelectedRequestId(null);
+        setIsModalOpen(false);
     };
 
     /*const closeModal = () => {
@@ -114,6 +109,63 @@ const MaintenanceRequestsMT = (props) => {
         (maintenanceRequest) => maintenanceRequest.status === 'Pending'
     );
 
+    /*const filteredRequests = listOfRequests.filter((maintenanceRequest) =>{
+        const status = maintenanceRequest.status ==='Pending'
+        const apartmentMatch = maintenanceRequest.apartmentnumber && maintenanceRequest.apartmentnumber.toString().includes(apartmentNumberFilter);
+        const areaMatch = maintenanceRequest.problemarea && maintenanceRequest.problemarea.toLowerCase().includes(areaFilter);
+        
+        return(
+            status && (apartmentMatch || areaMatch ||!apartmentNumberFilter || !areaFilter)
+        );
+    })*/
+
+    const filteredRequests = pendingRequests.filter((maintenanceRequest) => {
+        const apartmentMatch = maintenanceRequest.apartmentnumber && maintenanceRequest.apartmentnumber.includes(apartmentNumberFilter)
+        //const areaMatch = maintenanceRequest.problemarea && maintenanceRequest.problemarea.toLowerCase().includes(areaFilter.toLowerCase())
+
+
+        /*return(
+            
+            apartmentMatch || areaMatch || !apartmentNumberFilter || !areaFilter
+        )*/
+
+        return (
+            apartmentMatch || !apartmentNumberFilter
+        )
+    })
+
+    const filteredRequests2 = filteredRequests.filter((maintenanceRequest) => {
+        const areaMatch = maintenanceRequest.problemarea && maintenanceRequest.problemarea.toLowerCase().includes(areaFilter.toLowerCase())
+
+
+        return (
+            areaMatch || !areaFilter
+        )
+    })
+
+    const filteredRequests3 = filteredRequests2.filter((maintenanceRequest) => {
+        const startDateMatch = !startDateFilter || maintenanceRequest.datetime >= startDateFilter;
+        const endDateMatch = !endDateFilter || maintenanceRequest.datetime <= endDateFilter;
+    
+        return startDateMatch && endDateMatch;
+    });
+
+    const handleApartmentFilter = (event) => {
+        setApartmentNumberFilter(event.target.value)
+    }
+
+    const handleAreaFilter = (event) => {
+        setAreaFilter(event.target.value)
+    }
+
+    const handleEndDateFilter = (event) =>{
+        setEndDateFilter(event.target.value)
+    }
+
+    const handleStartDateFilter = (event) => {
+        setStartDateFilter(event.target.value)
+    }
+
     return (
 
         <div>
@@ -122,54 +174,51 @@ const MaintenanceRequestsMT = (props) => {
                     <a href='/MaintenanceRequestHistory'>History</a>
                     <a href='/'> Logout</a>
                 </div>
-
             </nav>
 
-            <h1>Here are the maintenance requests</h1>
+            
             <div className='MaintenanceRequests'>
+            <h1>Resident Maintenance Requests</h1>
                 <div>
-                <div>
-                    <label>
-                        Apartment Number:
-                        <input
-                            type='text'
-                            value={apartmentNumberFilter || ''}
-                            onChange={(e) => setApartmentNumberFilter(e.target.value)}
-                        />
-                    </label>
-                    <label>
-                        Area:
-                        <input
-                            type='text'
-                            value={areaFilter || ''}
-                            onChange={(e) => setAreaFilter(e.target.value)}
-                        />
-                    </label>
-                    <label>
-                        Start Date:
-                        <input
-                            type='date'
-                            value={startDateFilter || ''}
-                            onChange={(e) => setStartDateFilter(e.target.value)}
-                        />
-                    </label>
-                    <label>
-                        End Date:
-                        <input
-                            type='date'
-                            value={endDateFilter || ''}
-                            onChange={(e) => setEndDateFilter(e.target.value)}
-                        />
-                    </label>
-                    <label>
-                        Status:
-                        <input
-                            type='text'
-                            value={statusFilter || ''}
-                            onChange={(e) => setStatusFilter(e.target.value)}
-                        />
-                    </label>
-                </div>
+                    <div className='request-filters'>
+                        <label>
+                            Apartment Number:
+                            <input
+                                id="apartmentNumberFilter"
+                                type='text'
+                                value={apartmentNumberFilter}
+                                onChange={handleApartmentFilter}
+                            />
+                        </label>
+                        <label>
+                            Area:
+                            <input
+                                id="areaFilter"
+                                type='text'
+                                value={areaFilter}
+                                onChange={handleAreaFilter}
+                            />
+                        </label>
+                        <label>
+                            Start Date:
+                            <input
+                                id="startDateFilter"
+                                type='date'
+                                value={startDateFilter}
+                                onChange={handleStartDateFilter}
+                            />
+                        </label>
+                        <label>
+                            End Date:
+                            <input
+                                id="endDateFilter"
+                                type='date'
+                                value={endDateFilter || ''}
+                                onChange={handleEndDateFilter}
+                            />
+                        </label>
+
+                    </div>
                     <table className="maintenanceRequestDisplay">
                         <thead>
                             <tr>
@@ -184,21 +233,7 @@ const MaintenanceRequestsMT = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {pendingRequests.map((maintenanceRequest) => (
-                                <tr key={maintenanceRequest.id}>
-                                <td>{maintenanceRequest._id}</td>
-                                <td>{maintenanceRequest.apartmentnumber}</td>
-                                <td>{maintenanceRequest.problemarea}</td>
-                                <td>{maintenanceRequest.description}</td>
-                                <td>{maintenanceRequest.datetime}</td>
-                                <td><img src='maintenanceRequest.problemimage'></img></td>
-                                <td>{maintenanceRequest.status}</td>
-                                <td>
-                                    <button onClick={() => markAsComplete(maintenanceRequest._id)}>Mark As Complete</button>
-                                </td>
-                            </tr>
-                            ))}
-                            {/*{listOfRequests.map((maintenanceRequest) => (
+                            {filteredRequests3.map((maintenanceRequest) => (
                                 <tr key={maintenanceRequest.id}>
                                     <td>{maintenanceRequest._id}</td>
                                     <td>{maintenanceRequest.apartmentnumber}</td>
@@ -208,28 +243,32 @@ const MaintenanceRequestsMT = (props) => {
                                     <td><img src='maintenanceRequest.problemimage'></img></td>
                                     <td>{maintenanceRequest.status}</td>
                                     <td>
-                                        <button onClick={() => markAsComplete(maintenanceRequest._id)}>Mark As Complete</button>
+                                        <button onClick={() => openConfirmModal(maintenanceRequest._id)}>Mark As Complete</button>
+
                                     </td>
                                 </tr>
-                            ))}*/}
+                            ))}
+
                         </tbody>
-                       {/*} <Modal
-                            isOpen={modalIsOpen}
-                            onRequestClose={closeModal}
-                            contentLabel="Confirm Mark as Complete"
-                        >
-                            <p>Are you sure you want to mark this as complete? (This action cannot be undone)</p>
-                            <label>
-                                <input type="checkbox" onChange={confirmMarkAsComplete} />
-                                Confirm
-                            </label>
-                            <button onClick={confirmMarkAsComplete}>OK</button>
-                            <button onClick={closeModal}>Cancel</button>
-                        </Modal> */}
+
                     </table>
                 </div>
             </div>
+            {isModalOpen && (
+                <div className="confirm-complete-modal-overlay">
+                    <div className="confirm-modal">
+                        <h2>Are you sure you want to confirm this request has been completed? </h2>
+                        <h3>(This action cannot be undone)</h3>
+                        <label>
+                            Yes, Confirm
+                            <input type="checkbox" id="confirmationCheckbox" checked={isConfirmationChecked} onChange={handleConfirmationChange} />
+                        </label>
 
+                        <button onClick={closeConfirmModal}>Cancel</button>
+                        <button onClick={confirmMarkAsComplete}>Save Changes</button>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
