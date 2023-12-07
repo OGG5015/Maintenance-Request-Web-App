@@ -18,7 +18,7 @@
 .adminuserssection,
 .adminmrsection {
     width: 48%;
-    /* Two sections side by side on top */
+    
     margin-bottom: 20px;
     padding: 20px;
     border: 1px solid #ddd;
@@ -28,7 +28,7 @@
 
 .adminbottomsection {
     width: 100%;
-    /* One section across the bottom */
+    
     padding: 20px;
     border: 1px solid #ddd;
     box-sizing: border-box;
