@@ -1,3 +1,10 @@
+Here is a short video discussing project 3 for CMPSC 487W:
+
+https://youtu.be/jARWFfdxrsE
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
